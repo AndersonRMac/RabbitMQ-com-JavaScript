@@ -10,7 +10,7 @@ amqp.connect('amqp://localhost')
 .then(function(ch){
     console.log('Canal Criado');
 
-    var msg = 'Nova viagem'
+    var msg = 'Nova viagem';
     ch.sendToQueue('viagens', new Buffer.from(msg))
 
     console.log('Mensagem recebida na fila: ', msg);
