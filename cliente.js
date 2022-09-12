@@ -1,5 +1,5 @@
 var amqp = require ('amqplib');
-const Viagens = require('../model/viagens');
+const Viagens = require('./model/viagens');
 var fila = 'fila_viagens'
 
 amqp.connect('amqp://localhost')
@@ -13,12 +13,15 @@ amqp.connect('amqp://localhost')
     console.log('Fila Criada!');
 
     var viagens = new Viagens;
-    viagens._EQP_SRN = 111;
+    viagens._IGN_OFF = 111;
     viagens._VEI_ID = 222;
 
-    ch.assertQueue(fila, {durable:true})
-    ch.sendToQueue(fila, new Buffer.from(viagens))
+    var tratado = JSON.stringify(viagens);
 
-    console.log('Mensagem recebida na fila: ', msg);
+    ch.assertQueue(fila, {durable:true})
+    ch.sendToQueue(fila, new Buffer.from(tratado))
+    console.log('Mensagem enviada...');
+
+    console.log('Mensagem recebida na fila: ', tratado);
 });
 
