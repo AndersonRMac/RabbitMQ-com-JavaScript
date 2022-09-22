@@ -11,8 +11,13 @@ function consumer(){
     })
     .then(function(ch){
         ch.consume(queue, function(msg){
-        console.log('mensagem recebida: ', msg.content.toString());
-        
+            // const obj = Buffer.from(msg.content)
+            let obj = JSON.parse(msg.content);
+            // const objs = obj.match(/{\w+}/)
+            //let obj = msg.content.toString();
+            console.log(obj);
+            // console.log(JSON.parse(obj)[0])
+            // console.log(obj[0]?.VEI_ID)
     })
   
 })}

@@ -1,4 +1,5 @@
 var amqp = require ('amqplib');
+const { recebeViagem } = require('./model/ViagemDto');
 var queue = 'fila_viagens';
 
  function client(){
@@ -17,7 +18,8 @@ var queue = 'fila_viagens';
 
         setInterval(function(){
             console.log('-> Enviando Mensagem');
-            ch.sendToQueue(queue, new Buffer.from('Mensagem que enviei 2!'))
+            // console.log(JSON.stringify(recebeViagem))
+            ch.sendToQueue(queue, Buffer.from(JSON.stringify(recebeViagem)))
 
         }, 5000);
 
